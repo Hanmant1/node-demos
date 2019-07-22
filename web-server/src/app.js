@@ -66,9 +66,9 @@ app.get('/weather', (req, res) => {
                 return res.send({ error: error });
             }
             console.log(location);
-            const forcast = summary + " It is currently " + apparentTemperature + " degree out. There is a " + precipProbability + " % chance of rain.";
+            const forecast = summary + " It is currently " + apparentTemperature + " degree out. There is a " + precipProbability + " % chance of rain.";
             res.send({
-                forcast: forcast,
+                forecast: forecast,
                 location: location,
                 address: req.query.address
             })
