@@ -4,7 +4,7 @@ const hbs = require('hbs');
 const geocode = require('./utils/geocode');
 const forcast = require('./utils/forcast');
 const app = express();
-
+const port = process.env.PORT || 3000;
 //Define path for express config
 const publicDirectoryPath = path.join(__dirname, '../public');
 const viewPath = path.join(__dirname, '../templates/views');
@@ -61,9 +61,9 @@ app.get('/weather', (req, res) => {
         if (error) {
             return res.send({ error: error });
         }
-        forcast(latitude, longitude, (error, { summary, apparentTemperature, precipProbability }) => {
-            if (error) {
-                return res.send({ error: error });
+        forcast(latitude, longitude, (e, { summary, apparentTemperature, precipProbability }) => {
+            if (e) {
+                return res.send({ error: e });
             }
             console.log(location);
             const forecast = summary + " It is currently " + apparentTemperature + " degree out. There is a " + precipProbability + " % chance of rain.";
@@ -97,6 +97,6 @@ app.get('*', (req, res) => {
     })
 })
 
-app.listen('3000', () => {
-    console.log('Server is up port 3000');
+app.listen(port, () => {
+    console.log('Server is up port' + port);
 });
